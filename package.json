@@ -1,0 +1,37 @@
+{
+  "name": "tenth",
+  "version": "1.0.0",
+  "description": "Organize and track the tenth payments.",
+  "main": "lib/index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "dependencies": {
+    "cli-table": "^0.3.1",
+    "clp": "^1.2.0",
+    "ul": "^2.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.4"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:IonicaBizau/tenth.git"
+  },
+  "keywords": [
+    "tenth",
+    "God",
+    "church",
+    "payment"
+  ],
+  "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IonicaBizau/tenth/issues"
+  },
+  "homepage": "https://github.com/IonicaBizau/tenth"
+}
