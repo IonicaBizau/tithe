@@ -10,7 +10,7 @@ Logger.config.displayDate = false;
 Logger.config.logLevel = 4;
 
 var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
-  , descriptionOpt = new CLP.Option(["d", "description"], "The event description.")
+  , descriptionOpt = new CLP.Option(["d", "description"], "The event description.", "description")
   , valueOpt = new CLP.Option(["p", "price", "value"], "The tenth or brute income. When using the brute income, pass the -t (or --tenth) option.", "value")
   , tenthOpt = new CLP.Option(["t", "tenth"], "This will take a tenth of the brute value.")
   , allOpt = new CLP.Option(["a", "all"], "Display all events.")
@@ -39,4 +39,44 @@ var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
     ])
   ;
 
+function log(err, data) {
+    if (err) { return Logger.log(err.stack || err, "error"); }
+    Logger.log(data, "info");
+}
 
+// Insert
+if (insertOpt.is_provided) {
+
+    // Description
+    if (!descriptionOpt.value) {
+        return log("Description is required.");
+    }
+
+    // Value
+    if (!valueOpt.value) {
+        return log("The value (price) is required.");
+    } else {
+        valueOpt.value = parseFloat(valueOpt.value);
+    }
+
+    if (isNaN(valueOpt.value)) {
+        return log("Invalid price value.");
+    }
+
+    return Tenth.insert({
+        description: descriptionOpt.value
+      , date: new Date()
+      , paid: false
+      , value: valueOpt.value
+      , tenth: tenthOpt.is_provided
+    }, function (err) {
+        log(err, "Inserted successfully.");
+    });
+}
+
+// Handle currency set
+if (currencyOpt.is_provided) {
+    return Tenth.setCurrency(currencyOpt.value, function (err) {
+        log(err, "Currency set succesfully.");
+    });
+}
