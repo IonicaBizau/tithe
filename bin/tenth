@@ -6,6 +6,8 @@ var Tenth = require("../lib")
   , Package = require("../package")
   , Logger = require("bug-killer")
   , Table = require("le-table")
+  , FlatColors = require("flatcolors")
+  , Couleurs = require("couleurs")()
   ;
 
 // Table defaults
@@ -37,6 +39,7 @@ var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
   , tenthOpt = new CLP.Option(["t", "tenth"], "This will take a tenth of the brute value.")
   , allOpt = new CLP.Option(["a", "all"], "Display all events.")
   , currencyOpt = new CLP.Option(["c", "currency"], "Sets the currency.", "currency")
+  , payOpt = new CLP.Option(["y", "pay"], "Mark everything as paid.")
   , parser = new CLP({
         name: "Tenth"
       , version: Package.version
@@ -57,7 +60,7 @@ var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
       , process: true
     }, [
         insertOpt, descriptionOpt, valueOpt
-      , tenthOpt, allOpt, currencyOpt
+      , tenthOpt, allOpt, currencyOpt, payOpt
     ])
   ;
 
@@ -112,16 +115,32 @@ if (currencyOpt.is_provided) {
     });
 }
 
-// Create table instance
-var tenthTable = new Table();
+// Pay option
+if (payOpt.is_provided) {
+    return Tenth.pay(function (err) {
+        log(err, "Everything was marked as paid.");
+    });
+}
+
+// List the events
 Tenth.getData({
     paid: allOpt.is_provided
 }, function (err, data) {
-    tenthTable.addRow(["#", "Date", "Description", "Paid", "Value (" + data.currency + ")" ]);
     if (err) { return log(err); }
+    if (!data.events.length) {
+        return log(null, "Everything is paid.");
+    }
+    var tenthTable = new Table();
+    tenthTable.addRow(["#", "Date", "Description", "Paid", "Value (" + data.currency + ")" ]);
     data.events.forEach(function (c, i) {
-        tenthTable.addRow([i + 1, c.date.toString().split(" ").slice(0, 3).join(" "), c.desc, c.paid ? "Yes" : "No", c.val]);
+        tenthTable.addRow([
+            i + 1
+          , c.date.toString().split(" ").slice(0, 3).join(" ")
+          , c.desc
+          , c.paid ? Couleurs.fg("●", FlatColors(0, 255, 0)) + " Yes"
+          : Couleurs.fg("●", FlatColors(255, 0, 0)) + " No", c.val
+        ]);
     });
-    tenthTable.addRow([" ", " ", " ", "TOTAL:", [data.total, data.currency].join(" ")]);
+    tenthTable.addRow([" ", " ", " ", Couleurs.bold("TOTAL:"), Couleurs.bold([data.total, data.currency].join(" "))]);
     console.log(tenthTable.toString());
 });
