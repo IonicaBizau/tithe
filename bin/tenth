@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+var Tenth = require("../lib")
+  , CLP = require("clp")
+  , Package = require("../package")
+  , Logger = require("bug-killer")
+  ;
+
+Logger.config.displayDate = false;
+Logger.config.logLevel = 4;
+
+var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
+  , descriptionOpt = new CLP.Option(["d", "description"], "The event description.")
+  , valueOpt = new CLP.Option(["p", "price", "value"], "The tenth or brute income. When using the brute income, pass the -t (or --tenth) option.", "value")
+  , tenthOpt = new CLP.Option(["t", "tenth"], "This will take a tenth of the brute value.")
+  , allOpt = new CLP.Option(["a", "all"], "Display all events.")
+  , currencyOpt = new CLP.Option(["c", "currency"], "Sets the currency.", "currency")
+  , parser = new CLP({
+        name: "Tenth"
+      , version: Package.version
+      , exe: Package.name
+      , examples: [
+            "tenth -i -p 100 -d 'Some work for someone'"
+          , "tenth -a # displays all the payments"
+          , "tenth -i -p 500 -t -d 'GitHub Bounty reward.'"
+          , "tenth -c '$' # sets the USD currency"
+        ]
+      , docs_url: "https://github.com/IonicaBizau/tenth"
+      , notes:
+          "«Bring the whole tithe into the storehouse, that there may be food"
+      + "\nin my house. Test me in this,” says the Lord Almighty, “and see if"
+      + "\nI  will not throw  open the floodgates  of heaven and  pour out so"
+      + "\nmuch blessing  that there will  not be room  enough to  store it.»"
+      + "\n                                                    (Malachi 3:10)"
+      , process: true
+    }, [
+        insertOpt, descriptionOpt, valueOpt
+      , tenthOpt, allOpt, currencyOpt
+    ])
+  ;
+
+
