@@ -114,13 +114,14 @@ if (currencyOpt.is_provided) {
 
 // Create table instance
 var tenthTable = new Table();
-tenthTable.addRow(["#", "Date", "Description", "Paid", "Value"]);
 Tenth.getData({
     paid: allOpt.is_provided
 }, function (err, data) {
+    tenthTable.addRow(["#", "Date", "Description", "Paid", "Value (" + data.currency + ")" ]);
     if (err) { return log(err); }
     data.events.forEach(function (c, i) {
-        tenthTable.addRow([i, c.date.toString().split(" ").slice(0, 3).join(" "), c.desc, c.paid ? "Yes" : "No", c.val]);
+        tenthTable.addRow([i + 1, c.date.toString().split(" ").slice(0, 3).join(" "), c.desc, c.paid ? "Yes" : "No", c.val]);
     });
+    tenthTable.addRow([" ", " ", " ", "TOTAL:", [data.total, data.currency].join(" ")]);
     console.log(tenthTable.toString());
 });
