@@ -1,14 +1,36 @@
 #!/usr/bin/env node
 
+// Dependencies
 var Tenth = require("../lib")
   , CLP = require("clp")
   , Package = require("../package")
   , Logger = require("bug-killer")
+  , Table = require("le-table")
   ;
 
+// Table defaults
+Table.defaults.marks = {
+    nw: "┌"
+  , n:  "─"
+  , ne: "┐"
+  , e:  "│"
+  , se: "┘"
+  , s:  "─"
+  , sw: "└"
+  , w:  "│"
+  , b: " "
+  , mt: "┬"
+  , ml: "├"
+  , mr: "┤"
+  , mb: "┴"
+  , mm: "┼"
+};
+
+// Logger configs
 Logger.config.displayDate = false;
 Logger.config.logLevel = 4;
 
+// Parse the command line arguments
 var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
   , descriptionOpt = new CLP.Option(["d", "description"], "The event description.", "description")
   , valueOpt = new CLP.Option(["p", "price", "value"], "The tenth or brute income. When using the brute income, pass the -t (or --tenth) option.", "value")
@@ -39,6 +61,15 @@ var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
     ])
   ;
 
+/*!
+ * log
+ *
+ * @name log
+ * @function
+ * @param {Error} err The error.
+ * @param {String} data The info message.
+ * @return {undefined}
+ */
 function log(err, data) {
     if (err) { return Logger.log(err.stack || err, "error"); }
     Logger.log(data, "info");
@@ -64,10 +95,10 @@ if (insertOpt.is_provided) {
     }
 
     return Tenth.insert({
-        description: descriptionOpt.value
+        desc: descriptionOpt.value
       , date: new Date()
       , paid: false
-      , value: valueOpt.value
+      , val: valueOpt.value
       , tenth: tenthOpt.is_provided
     }, function (err) {
         log(err, "Inserted successfully.");
@@ -80,3 +111,16 @@ if (currencyOpt.is_provided) {
         log(err, "Currency set succesfully.");
     });
 }
+
+// Create table instance
+var tenthTable = new Table();
+tenthTable.addRow(["#", "Date", "Description", "Paid", "Value"]);
+Tenth.getData({
+    paid: allOpt.is_provided
+}, function (err, data) {
+    if (err) { return log(err); }
+    data.events.forEach(function (c, i) {
+        tenthTable.addRow([i, c.date.toString().split(" ").slice(0, 3).join(" "), c.desc, c.paid ? "Yes" : "No", c.val]);
+    });
+    console.log(tenthTable.toString());
+});
