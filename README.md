@@ -1,4 +1,4 @@
-![](http://i.imgur.com/i7XfN2P.png)
+![](http://i.imgur.com/AYoWvql.png)
 
 # `$ tithe`
 Organize and track the tithe payments.
