@@ -1,10 +1,10 @@
 {
-  "name": "tenth",
+  "name": "tithe",
   "version": "1.0.0",
-  "description": "Organize and track the tenth payments.",
+  "description": "Organize and track the tithe payments.",
   "main": "lib/index.js",
   "bin": {
-      "tenth": "./bin/tenth"
+      "tithe": "./bin/tithe"
   },
   "directories": {
     "example": "example",
@@ -23,10 +23,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:IonicaBizau/tenth.git"
+    "url": "git@github.com:IonicaBizau/tithe.git"
   },
   "keywords": [
-    "tenth",
+    "tithe",
     "God",
     "church",
     "payment"
@@ -34,7 +34,7 @@
   "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/IonicaBizau/tenth/issues"
+    "url": "https://github.com/IonicaBizau/tithe/issues"
   },
-  "homepage": "https://github.com/IonicaBizau/tenth"
+  "homepage": "https://github.com/IonicaBizau/tithe"
 }

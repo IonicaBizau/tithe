@@ -1,5 +1,5 @@
-var Tenth = require("../lib");
-Tenth.insert({
+var Tithe = require("../lib");
+Tithe.insert({
     value: 100,
-    tenth: true
+    tithe: true
 });

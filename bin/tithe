@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Dependencies
-var Tenth = require("../lib")
+var Tithe = require("../lib")
   , CLP = require("clp")
   , Package = require("../package")
   , Logger = require("bug-killer")
@@ -35,22 +35,22 @@ Logger.config.logLevel = 4;
 // Parse the command line arguments
 var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
   , descriptionOpt = new CLP.Option(["d", "description"], "The event description.", "description")
-  , valueOpt = new CLP.Option(["p", "price", "value"], "The tenth or brute income. When using the brute income, pass the -t (or --tenth) option.", "value")
-  , tenthOpt = new CLP.Option(["t", "tenth"], "This will take a tenth of the brute value.")
+  , valueOpt = new CLP.Option(["p", "price", "value"], "The tithe or brute income. When using the brute income, pass the -t (or --tithe) option.", "value")
+  , titheOpt = new CLP.Option(["t", "tithe"], "This will take a tithe of the brute value.")
   , allOpt = new CLP.Option(["a", "all"], "Display all events.")
   , currencyOpt = new CLP.Option(["c", "currency"], "Sets the currency.", "currency")
   , payOpt = new CLP.Option(["y", "pay"], "Mark everything as paid.")
   , parser = new CLP({
-        name: "Tenth"
+        name: "Tithe"
       , version: Package.version
       , exe: Package.name
       , examples: [
-            "tenth -i -p 100 -d 'Some work for someone'"
-          , "tenth -a # displays all the payments"
-          , "tenth -i -p 500 -t -d 'GitHub Bounty reward.'"
-          , "tenth -c '$' # sets the USD currency"
+            "tithe -i -p 100 -d 'Some work for someone'"
+          , "tithe -a # displays all the payments"
+          , "tithe -i -p 500 -t -d 'GitHub Bounty reward.'"
+          , "tithe -c '$' # sets the USD currency"
         ]
-      , docs_url: "https://github.com/IonicaBizau/tenth"
+      , docs_url: "https://github.com/IonicaBizau/tithe"
       , notes:
           "«Bring the whole tithe into the storehouse, that there may be food"
       + "\nin my house. Test me in this,” says the Lord Almighty, “and see if"
@@ -60,7 +60,7 @@ var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
       , process: true
     }, [
         insertOpt, descriptionOpt, valueOpt
-      , tenthOpt, allOpt, currencyOpt, payOpt
+      , titheOpt, allOpt, currencyOpt, payOpt
     ])
   ;
 
@@ -97,12 +97,12 @@ if (insertOpt.is_provided) {
         return log("Invalid price value.");
     }
 
-    return Tenth.insert({
+    return Tithe.insert({
         desc: descriptionOpt.value
       , date: new Date()
       , paid: false
       , val: valueOpt.value
-      , tenth: tenthOpt.is_provided
+      , tithe: titheOpt.is_provided
     }, function (err) {
         log(err, "Inserted successfully.");
     });
@@ -110,30 +110,30 @@ if (insertOpt.is_provided) {
 
 // Handle currency set
 if (currencyOpt.is_provided) {
-    return Tenth.setCurrency(currencyOpt.value, function (err) {
+    return Tithe.setCurrency(currencyOpt.value, function (err) {
         log(err, "Currency set succesfully.");
     });
 }
 
 // Pay option
 if (payOpt.is_provided) {
-    return Tenth.pay(function (err) {
+    return Tithe.pay(function (err) {
         log(err, "Everything was marked as paid.");
     });
 }
 
 // List the events
-Tenth.getData({
+Tithe.getData({
     paid: allOpt.is_provided
 }, function (err, data) {
     if (err) { return log(err); }
     if (!data.events.length) {
         return log(null, "Everything is paid.");
     }
-    var tenthTable = new Table();
-    tenthTable.addRow(["#", "Date", "Description", "Paid", "Value (" + data.currency + ")" ]);
+    var titheTable = new Table();
+    titheTable.addRow(["#", "Date", "Description", "Paid", "Value (" + data.currency + ")" ]);
     data.events.forEach(function (c, i) {
-        tenthTable.addRow([
+        titheTable.addRow([
             i + 1
           , c.date.toString().split(" ").slice(0, 3).join(" ")
           , c.desc
@@ -141,6 +141,6 @@ Tenth.getData({
           : Couleurs.fg("●", FlatColors(255, 0, 0)) + " No", c.val
         ]);
     });
-    tenthTable.addRow([" ", " ", " ", Couleurs.bold("TOTAL:"), Couleurs.bold([data.total, data.currency].join(" "))]);
-    console.log(tenthTable.toString());
+    titheTable.addRow([" ", " ", " ", Couleurs.bold("TOTAL:"), Couleurs.bold([data.total, data.currency].join(" "))]);
+    console.log(titheTable.toString());
 });

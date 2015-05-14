@@ -1,7 +1,7 @@
 ![](http://i.imgur.com/i7XfN2P.png)
 
-# `$ tenth`
-Organize and track the tenth payments.
+# `$ tithe`
+Organize and track the tithe payments.
 
 *«Bring the whole tithe into the storehouse, that there may be food
 in my house. Test me in this,” says the Lord Almighty, “and see if
@@ -13,23 +13,23 @@ much blessing  that there will  not be room  enough to  store it.»*
 ## Installation
 
 ```sh
-$ npm install -g tenth
+$ npm install -g tithe
 ```
 
 ### CLI Usage
 
-Run `tenth -h` to see the help content.
+Run `tithe -h` to see the help content.
 
 ```sh
-$ tenth -h
-Usage: tenth [options]
+$ tithe -h
+Usage: tithe [options]
 
 Options:
   -i, --insert                     Inserts a new event.
   -d, --description <description>  The event description.
-  -p, --value, --price <value>     The tenth or brute income. When using the brute
-                                   income, pass the -t (or --tenth) option.
-  -t, --tenth                      This will take a tenth of the brute value.
+  -p, --value, --price <value>     The tithe or brute income. When using the brute
+                                   income, pass the -t (or --tithe) option.
+  -t, --tithe                      This will take a tithe of the brute value.
   -a, --all                        Display all events.
   -c, --currency <currency>        Sets the currency.
   -y, --pay                        Mark everything as paid.
@@ -37,10 +37,10 @@ Options:
   -v, --version                    Displays version information.
 
 Examples:
-  tenth -i -p 100 -d 'Some work for someone'
-  tenth -a # displays all the payments
-  tenth -i -p 500 -t -d 'GitHub Bounty reward.'
-  tenth -c '$' # sets the USD currency
+  tithe -i -p 100 -d 'Some work for someone'
+  tithe -a # displays all the payments
+  tithe -i -p 500 -t -d 'GitHub Bounty reward.'
+  tithe -c '$' # sets the USD currency
 
 «Bring the whole tithe into the storehouse, that there may be food
 in my house. Test me in this,” says the Lord Almighty, “and see if
@@ -48,7 +48,7 @@ I  will not throw  open the floodgates  of heaven and  pour out so
 much blessing  that there will  not be room  enough to  store it.»
                                                     (Malachi 3:10)
 
-Documentation can be found at https://github.com/IonicaBizau/tenth
+Documentation can be found at https://github.com/IonicaBizau/tithe
 ```
 
 ## Documentation
@@ -66,10 +66,10 @@ Creates an event instance.
 - **String** `id`: An optional id.
 
 #### Return
-- **Tenth.Event** The `Event` instance.
+- **Tithe.Event** The `Event` instance.
 
 ### `getData(options, callback)`
-Fetches tenth data.
+Fetches tithe data.
 
 #### Params
 - **Object** `options`: An object containing:
@@ -78,7 +78,7 @@ Fetches tenth data.
 - **Function** `callback`: The callback function.
 
 #### Return
-- **Tenth** The `Tenth` instance.
+- **Tithe** The `Tithe` instance.
 
 ### `read(callback)`
 Reads the JSON file.
@@ -87,7 +87,7 @@ Reads the JSON file.
 - **Function** `callback`: The callback function.
 
 #### Return
-- **Tenth** The `Tenth` instance.
+- **Tithe** The `Tithe` instance.
 
 ### `write(content, callback)`
 Writes the JSON information in the file.
@@ -97,17 +97,17 @@ Writes the JSON information in the file.
 - **Function** `callback`: The callback function.
 
 #### Return
-- **Tenth** The `Tenth` instance.
+- **Tithe** The `Tithe` instance.
 
 ### `insert(data, callback)`
 Inserts a new event.
 
 #### Params
-- **Object** `data`: An object which will be passed to the `Tenth.Event` constructor.
+- **Object** `data`: An object which will be passed to the `Tithe.Event` constructor.
 - **Function** `callback`: The callback function.
 
 #### Return
-- **Tenth** The `Tenth` instance.
+- **Tithe** The `Tithe` instance.
 
 ### `pay(callback)`
 Marks all events as paid.
@@ -116,7 +116,7 @@ Marks all events as paid.
 - **Function** `callback`: The callback function.
 
 #### Return
-- **Tenth** The `Tenth` instance.
+- **Tithe** The `Tithe` instance.
 
 ### `setCurrency(newCurrency, callback)`
 Sets the currency.
@@ -126,7 +126,7 @@ Sets the currency.
 - **Function** `callback`: The callback function.
 
 #### Return
-- **Tenth** The `Tenth` instance.
+- **Tithe** The `Tithe` instance.
 
 ## How to contribute
 1. File an issue in the repository, using the bug tracker, describing the
