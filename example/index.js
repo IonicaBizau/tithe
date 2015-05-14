@@ -1,5 +1,5 @@
 var Tithe = require("../lib");
 Tithe.insert({
-    value: 100,
+    val: 100,
     tithe: true
 });
