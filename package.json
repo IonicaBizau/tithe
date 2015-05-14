@@ -4,19 +4,11 @@
   "description": "Organize and track the tithe payments.",
   "main": "lib/index.js",
   "bin": {
-      "tithe": "./bin/tithe"
+    "tithe": "./bin/tithe"
   },
   "directories": {
     "example": "example",
     "test": "test"
-  },
-  "dependencies": {
-    "cli-table": "^0.3.1",
-    "clp": "^1.2.0",
-    "ul": "^2.1.0"
-  },
-  "devDependencies": {
-    "mocha": "^2.2.4"
   },
   "scripts": {
     "test": "mocha test"
@@ -36,5 +28,18 @@
   "bugs": {
     "url": "https://github.com/IonicaBizau/tithe/issues"
   },
-  "homepage": "https://github.com/IonicaBizau/tithe"
+  "homepage": "https://github.com/IonicaBizau/tithe",
+  "dependencies": {
+    "bug-killer": "^1.0.0",
+    "flatcolors": "^1.0.0",
+    "clp": "^1.2.0",
+    "couleurs": "^3.0.0",
+    "fs-plus": "^2.8.0",
+    "is-there": "^2.0.0",
+    "le-table": "^2.1.0",
+    "ul": "^2.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.4"
+  }
 }
