@@ -141,6 +141,6 @@ Tithe.getData({
           : Couleurs.fg("●", FlatColors(255, 0, 0)) + " No", c.val
         ]);
     });
-    titheTable.addRow([" ", " ", " ", Couleurs.bold("TOTAL:"), Couleurs.bold([data.total, data.currency].join(" "))]);
+    titheTable.addRow([" ", " ", " ", Couleurs.bold("TOTAL:"), Couleurs.bold([data.total.toFixed(2), data.currency].join(" "))]);
     console.log(titheTable.toString());
 });
