@@ -21,7 +21,7 @@ $ npm install -g tithe
 Run `tithe -h` to see the help content.
 
 ```sh
-$ tithe -h
+$ ./bin/tithe -h
 Usage: tithe [options]
 
 Options:
@@ -33,6 +33,7 @@ Options:
   -a, --all                        Display all events.
   -c, --currency <currency>        Sets the currency.
   -y, --pay                        Mark everything as paid.
+  -t, --tithe-path <path>          Use a different tithe json file path.
   -h, --help                       Displays this help.
   -v, --version                    Displays version information.
 
