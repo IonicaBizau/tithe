@@ -9,6 +9,41 @@ Organize and track the tenth payments.
 $ npm install -g tenth
 ```
 
+### CLI Usage
+
+Run `tenth -h` to see the help content.
+
+```sh
+$ tenth -h
+Usage: tenth [options]
+
+Options:
+  -i, --insert                     Inserts a new event.
+  -d, --description <description>  The event description.
+  -p, --value, --price <value>     The tenth or brute income. When using the brute
+                                   income, pass the -t (or --tenth) option.
+  -t, --tenth                      This will take a tenth of the brute value.
+  -a, --all                        Display all events.
+  -c, --currency <currency>        Sets the currency.
+  -y, --pay                        Mark everything as paid.
+  -h, --help                       Displays this help.
+  -v, --version                    Displays version information.
+
+Examples:
+  tenth -i -p 100 -d 'Some work for someone'
+  tenth -a # displays all the payments
+  tenth -i -p 500 -t -d 'GitHub Bounty reward.'
+  tenth -c '$' # sets the USD currency
+
+«Bring the whole tithe into the storehouse, that there may be food
+in my house. Test me in this,” says the Lord Almighty, “and see if
+I  will not throw  open the floodgates  of heaven and  pour out so
+much blessing  that there will  not be room  enough to  store it.»
+                                                    (Malachi 3:10)
+
+Documentation can be found at https://github.com/IonicaBizau/tenth
+```
+
 ## Documentation
 
 ### `Event(options, id)`
