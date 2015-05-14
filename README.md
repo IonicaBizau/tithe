@@ -6,8 +6,8 @@ Organize and track the tithe payments.
 *«Bring the whole tithe into the storehouse, that there may be food
 in my house. Test me in this,” says the Lord Almighty, “and see if
 I  will not throw  open the floodgates  of heaven and  pour out so
-much blessing  that there will  not be room  enough to  store it.»*
-*(Malachi 3:10)*
+much blessing  that there will  not be room  enough to  store it.»
+([Malachi 3:10](https://www.biblegateway.com/passage/?search=Mal.3.10&version=NIV))*
 
 
 ## Installation
