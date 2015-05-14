@@ -8,6 +8,8 @@ var Tithe = require("../lib")
   , Table = require("le-table")
   , FlatColors = require("flatcolors")
   , Couleurs = require("couleurs")()
+  , Fs = require("fs-plus")
+  , IsThere = require("is-there")
   ;
 
 // Table defaults
@@ -40,6 +42,7 @@ var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
   , allOpt = new CLP.Option(["a", "all"], "Display all events.")
   , currencyOpt = new CLP.Option(["c", "currency"], "Sets the currency.", "currency")
   , payOpt = new CLP.Option(["y", "pay"], "Mark everything as paid.")
+  , tFileOpt = new CLP.Option(["t", "tithe-path"], "Use a different tithe json file path.", "path")
   , parser = new CLP({
         name: "Tithe"
       , version: Package.version
@@ -60,7 +63,7 @@ var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
       , process: true
     }, [
         insertOpt, descriptionOpt, valueOpt
-      , titheOpt, allOpt, currencyOpt, payOpt
+      , titheOpt, allOpt, currencyOpt, payOpt, tFileOpt
     ])
   ;
 
@@ -76,6 +79,12 @@ var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
 function log(err, data) {
     if (err) { return Logger.log(err.stack || err, "error"); }
     Logger.log(data, "info");
+}
+
+// Handle the custom path
+if (tFileOpt.is_provided) {
+    tFileOpt.value = Fs.absolute(tFileOpt.value);
+    Tithe.path = tFileOpt.value;
 }
 
 // Insert
@@ -138,7 +147,8 @@ Tithe.getData({
           , c.date.toString().split(" ").slice(0, 3).join(" ")
           , c.desc
           , c.paid ? Couleurs.fg("●", FlatColors(0, 255, 0)) + " Yes"
-          : Couleurs.fg("●", FlatColors(255, 0, 0)) + " No", c.val
+          : Couleurs.fg("●", FlatColors(255, 0, 0)) + " No"
+          , c.val.toFixed(2)
         ]);
     });
     titheTable.addRow([" ", " ", " ", Couleurs.bold("TOTAL:"), Couleurs.bold([data.total.toFixed(2), data.currency].join(" "))]);
