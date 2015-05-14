@@ -4,7 +4,7 @@
   "description": "Organize and track the tenth payments.",
   "main": "lib/index.js",
   "bin": {
-      "tent": "./bin/tenth"
+      "tenth": "./bin/tenth"
   },
   "directories": {
     "example": "example",
