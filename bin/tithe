@@ -12,24 +12,6 @@ var Tithe = require("../lib")
   , IsThere = require("is-there")
   ;
 
-// Table defaults
-Table.defaults.marks = {
-    nw: "┌"
-  , n:  "─"
-  , ne: "┐"
-  , e:  "│"
-  , se: "┘"
-  , s:  "─"
-  , sw: "└"
-  , w:  "│"
-  , b: " "
-  , mt: "┬"
-  , ml: "├"
-  , mr: "┤"
-  , mb: "┴"
-  , mm: "┼"
-};
-
 // Logger configs
 Logger.config.displayDate = false;
 Logger.config.logLevel = 4;
@@ -66,6 +48,25 @@ var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
       , titheOpt, allOpt, currencyOpt, payOpt, tFileOpt
     ])
   ;
+
+// Table defaults
+Table.defaults.marks = {
+    nw: "┌"
+  , n:  "─"
+  , ne: "┐"
+  , e:  "│"
+  , se: "┘"
+  , s:  "─"
+  , sw: "└"
+  , w:  "│"
+  , b: " "
+  , mt: "┬"
+  , ml: "├"
+  , mr: "┤"
+  , mb: "┴"
+  , mm: "┼"
+};
+
 
 /*!
  * log
