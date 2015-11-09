@@ -1,41 +1,33 @@
-![](http://i.imgur.com/AYoWvql.png)
+# `$ tithe` [![Support this project][donate-now]][paypal-donations]
 
-# `$ tithe`
 Organize and track the tithe payments.
-
-*«Bring the whole tithe into the storehouse, that there may be food
-in my house. Test me in this,” says the Lord Almighty, “and see if
-I  will not throw  open the floodgates  of heaven and  pour out so
-much blessing  that there will  not be room  enough to  store it.»
-([Malachi 3:10](https://www.biblegateway.com/passage/?search=Mal.3.10&version=NIV))*
-
 
 ## Installation
 
+You can install the package globally and use it as command line tool:
+
 ```sh
-$ npm install -g tithe
+$ npm i -g tithe
 ```
 
-### CLI Usage
-
-Run `tithe -h` to see the help content.
+Then, run `tithe --help` and see what the CLI tool can do.
 
 ```sh
-$ ./bin/tithe -h
+$ tithe --help
 Usage: tithe [options]
 
 Options:
-  -i, --insert                     Inserts a new event.
-  -d, --description <description>  The event description.
+  -i, --insert                     Inserts a new event.                           
+  -d, --description <description>  The event description.                         
   -p, --value, --price <value>     The tithe or brute income. When using the brute
-                                   income, pass the -t (or --tithe) option.
-  -t, --tithe                      This will take a tithe of the brute value.
-  -a, --all                        Display all events.
-  -c, --currency <currency>        Sets the currency.
-  -y, --pay                        Mark everything as paid.
-  -t, --tithe-path <path>          Use a different tithe json file path.
-  -h, --help                       Displays this help.
-  -v, --version                    Displays version information.
+                                   income, pass the -t (or --tithe) option.       
+  -t, --tithe                      This will take a tithe of the brute value.     
+  -a, --all                        Display all events.                            
+  -c, --currency <currency>        Sets the currency.                             
+  -y, --pay                        Mark everything as paid.                       
+  -t, --tithe-path <path>          Use a different tithe json file path.          
+  -h, --help                       Displays this help.                            
+  -v, --version                    Displays version information.                  
 
 Examples:
   tithe -i -p 100 -d 'Some work for someone'
@@ -52,92 +44,41 @@ much blessing  that there will  not be room  enough to  store it.»
 Documentation can be found at https://github.com/IonicaBizau/tithe
 ```
 
+## Example
+
+Here is an example how to use this package as library. To install it locally, as library, you can do that using `npm`:
+
+```sh
+$ npm i tithe
+```
+
+```js
+var Tithe = require("tithe");
+Tithe.insert({
+    val: 100,
+    tithe: true
+});
+```
+
 ## Documentation
 
-### `Event(options, id)`
-Creates an event instance.
-
-#### Params
-- **Object** `options`: An object containing:
- - `desc` (String): The event description.
- - `val` (Number): The event value.
- - `date` (Date|String): The event date as date or parsable string.
- - `paid` (Boolean): A flag representing if the value is paid or not.
-
-- **String** `id`: An optional id.
-
-#### Return
-- **Tithe.Event** The `Event` instance.
-
-### `getData(options, callback)`
-Fetches tithe data.
-
-#### Params
-- **Object** `options`: An object containing:
- - `paid` (Boolean): If `true`, all events will be fetched.
-
-- **Function** `callback`: The callback function.
-
-#### Return
-- **Tithe** The `Tithe` instance.
-
-### `read(callback)`
-Reads the JSON file.
-
-#### Params
-- **Function** `callback`: The callback function.
-
-#### Return
-- **Tithe** The `Tithe` instance.
-
-### `write(content, callback)`
-Writes the JSON information in the file.
-
-#### Params
-- **Object** `content`: The content as object.
-- **Function** `callback`: The callback function.
-
-#### Return
-- **Tithe** The `Tithe` instance.
-
-### `insert(data, callback)`
-Inserts a new event.
-
-#### Params
-- **Object** `data`: An object which will be passed to the `Tithe.Event` constructor.
-- **Function** `callback`: The callback function.
-
-#### Return
-- **Tithe** The `Tithe` instance.
-
-### `pay(callback)`
-Marks all events as paid.
-
-#### Params
-- **Function** `callback`: The callback function.
-
-#### Return
-- **Tithe** The `Tithe` instance.
-
-### `setCurrency(newCurrency, callback)`
-Sets the currency.
-
-#### Params
-- **String** `newCurrency`: The new currency.
-- **Function** `callback`: The callback function.
-
-#### Return
-- **Tithe** The `Tithe` instance.
+For full API reference, see the [DOCUMENTATION.md][docs] file.
 
 ## How to contribute
-1. File an issue in the repository, using the bug tracker, describing the
-   contribution you'd like to make. This will help us to get you started on the
-   right foot.
-2. Fork the project in your account and create a new branch:
-   `your-great-feature`.
-3. Commit your changes in that branch.
-4. Open a pull request, and reference the initial issue in the pull request
-   message.
+Have an idea? Found a bug? See [how to contribute][contributing].
+
+## Where is this library used?
+If you are using this library in one of your projects, add it in this list. :sparkles:
 
 ## License
-See the [LICENSE](./LICENSE) file.
+
+[KINDLY][license] © [Ionică Bizău][website]
+
+[license]: http://ionicabizau.github.io/kindly-license/?author=Ionic%C4%83%20Biz%C4%83u%20%3Cbizauionica@gmail.com%3E&year=2015
+
+[website]: http://ionicabizau.net
+[paypal-donations]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RVXDDLKKLQRJW
+[donate-now]: http://i.imgur.com/6cMbHOC.png
+
+[contributing]: /CONTRIBUTING.md
+[docs]: /DOCUMENTATION.md
