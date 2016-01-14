@@ -1,6 +1,6 @@
-# `$ tithe` [![Support this project][donate-now]][paypal-donations]
+# `$ tithe` [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations] [![Travis](https://img.shields.io/travis/IonicaBizau/tithe.svg)](https://travis-ci.org/IonicaBizau/tithe/) [![Version](https://img.shields.io/npm/v/tithe.svg)](https://www.npmjs.com/package/tithe) [![Downloads](https://img.shields.io/npm/dt/tithe.svg)](https://www.npmjs.com/package/tithe) [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)
 
-Organize and track the tithe payments.
+> Organize and track the tithe payments.
 
 ## Installation
 
