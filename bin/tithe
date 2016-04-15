@@ -1,53 +1,30 @@
 #!/usr/bin/env node
 
+"use strict";
+
 // Dependencies
-var Tithe = require("../lib")
-  , CLP = require("clp")
-  , Package = require("../package")
-  , Logger = require("bug-killer")
-  , Table = require("le-table")
-  , FlatColors = require("flatcolors")
-  , Couleurs = require("couleurs")()
-  , Fs = require("fs-plus")
-  , IsThere = require("is-there")
-  ;
+const Tithe = require("../lib")
+    , Tilda = require("tilda")
+    , Logger = require("bug-killer")
+    , Table = require("le-table")
+    , FlatColors = require("flatcolors")
+    , Couleurs = require("couleurs")()
+    , isThere = require("is-there")
+    ;
 
-// Logger configs
-Logger.config.displayDate = false;
-Logger.config.logLevel = 4;
-
-// Parse the command line arguments
-var insertOpt = new CLP.Option(["i", "insert"], "Inserts a new event.")
-  , descriptionOpt = new CLP.Option(["d", "description"], "The event description.", "description")
-  , valueOpt = new CLP.Option(["p", "price", "value"], "The tithe or brute income. When using the brute income, pass the -t (or --tithe) option.", "value")
-  , titheOpt = new CLP.Option(["t", "tithe"], "This will take a tithe of the brute value.")
-  , allOpt = new CLP.Option(["a", "all"], "Display all events.")
-  , currencyOpt = new CLP.Option(["c", "currency"], "Sets the currency.", "currency")
-  , payOpt = new CLP.Option(["y", "pay"], "Mark everything as paid.")
-  , tFileOpt = new CLP.Option(["t", "tithe-path"], "Use a different tithe json file path.", "path")
-  , parser = new CLP({
-        name: "Tithe"
-      , version: Package.version
-      , exe: Package.name
-      , examples: [
-            "tithe -i -p 100 -d 'Some work for someone'"
-          , "tithe -a # displays all the payments"
-          , "tithe -i -p 500 -t -d 'GitHub Bounty reward.'"
-          , "tithe -c '$' # sets the USD currency"
-        ]
-      , docs_url: "https://github.com/IonicaBizau/tithe"
-      , notes:
-          "«Bring the whole tithe into the storehouse, that there may be food"
-      + "\nin my house. Test me in this,” says the Lord Almighty, “and see if"
-      + "\nI  will not throw  open the floodgates  of heaven and  pour out so"
-      + "\nmuch blessing  that there will  not be room  enough to  store it.»"
-      + "\n                                                    (Malachi 3:10)"
-      , process: true
-    }, [
-        insertOpt, descriptionOpt, valueOpt
-      , titheOpt, allOpt, currencyOpt, payOpt, tFileOpt
-    ])
-  ;
+/*!
+ * log
+ *
+ * @name log
+ * @function
+ * @param {Error} err The error.
+ * @param {String} data The info message.
+ * @return {undefined}
+ */
+function log(err, data) {
+    if (err) { return Logger.log(err.stack || err, "error"); }
+    Logger.log(data, "info");
+}
 
 // Table defaults
 Table.defaults.marks = {
@@ -66,92 +43,97 @@ Table.defaults.marks = {
   , mb: "┴"
   , mm: "┼"
 };
+// Logger configs
+Logger.config.displayDate = false;
+Logger.config.logLevel = 4;
+let tithe = null;
 
+let initTithe = () => tithe = new Tithe(parser.options.P.value);
 
-/*!
- * log
- *
- * @name log
- * @function
- * @param {Error} err The error.
- * @param {String} data The info message.
- * @return {undefined}
- */
-function log(err, data) {
-    if (err) { return Logger.log(err.stack || err, "error"); }
-    Logger.log(data, "info");
-}
-
-// Handle the custom path
-if (tFileOpt.is_provided) {
-    tFileOpt.value = Fs.absolute(tFileOpt.value);
-    Tithe.path = tFileOpt.value;
-}
-
-// Insert
-if (insertOpt.is_provided) {
-
-    // Description
-    if (!descriptionOpt.value) {
-        return log("Description is required.");
+let parser = new Tilda(`${__dirname}/../package.json`, {
+    options: {
+        opts: ["a", "all"]
+      , desc:  "Display all events."
     }
-
-    // Value
-    if (!valueOpt.value) {
-        return log("The value (price) is required.");
-    } else {
-        valueOpt.value = parseFloat(valueOpt.value);
+  , examples: [
+        "tithe -i -p 100 -d 'Some work for someone'"
+      , "tithe -a # displays all the payments"
+      , "tithe -i -p 500 -t -d 'GitHub Bounty reward.'"
+      , "tithe -c '$' # sets the USD currency"
+    ]
+  , notes: "«Bring the whole tithe into the storehouse, that there may be food "
+         + "in my house. Test me in this,” says the Lord Almighty, “and see if "
+         + "I will not throw open the floodgates of heaven and pour out so "
+         + "much blessing that there will not be room enough to store it.» "
+         + "(Malachi 3:10)"
+}).action([
+    {
+        desc: "Inserts a new event."
+      , name: "insert"
+      , args: ["description", "brute-income"]
+      , options: [
+            {
+                opts: ["t", "tithe"]
+              , desc:  "Compute the tenth part of the brute value."
+            }
+        ]
     }
-
-    if (isNaN(valueOpt.value)) {
-        return log("Invalid price value.");
+  , {
+        name: "currency"
+      , args: ["currency"]
+      , desc: "Sets the currency."
     }
-
-    return Tithe.insert({
-        desc: descriptionOpt.value
+  , {
+        name: "pay"
+      , desc: "Mark everything as paid."
+    }
+]).globalOption({
+    opts: ["P", "tithe-path"]
+  , desc:  "Use a different tithe json file path."
+  , name: "path"
+}).on("insert", action => {
+    initTithe();
+    let bruteVal = parseFloat(action.args["brute-income"]);
+    tithe.insert({
+        desc: action.args.description
       , date: new Date()
       , paid: false
-      , val: valueOpt.value
-      , tithe: titheOpt.is_provided
-    }, function (err) {
-        log(err, "Inserted successfully.");
-    });
-}
+      , val: bruteVal
+      , tithe: action.options.tithe.is_provided
+    }, err => log(err, "Inserted successfully."));
+}).on("currency", action => {
+    initTithe();
+    tithe.setCurrency(action.args.currency, err => log(err, "Currency set succesfully."));
+}).on("pay", action => {
+    initTithe();
+    tithe.pay(err => log(err, "Everything was marked as paid."));
+}).main(action => {
+    initTithe();
 
-// Handle currency set
-if (currencyOpt.is_provided) {
-    return Tithe.setCurrency(currencyOpt.value, function (err) {
-        log(err, "Currency set succesfully.");
-    });
-}
+    // List the events
+    tithe.getData({
+        paid: action.options.all.is_provided
+    }, (err, data) => {
+        if (err) { return log(err); }
 
-// Pay option
-if (payOpt.is_provided) {
-    return Tithe.pay(function (err) {
-        log(err, "Everything was marked as paid.");
-    });
-}
+        if (!data.events.length) {
+            return log(null, "Everything is paid.");
+        }
 
-// List the events
-Tithe.getData({
-    paid: allOpt.is_provided
-}, function (err, data) {
-    if (err) { return log(err); }
-    if (!data.events.length) {
-        return log(null, "Everything is paid.");
-    }
-    var titheTable = new Table();
-    titheTable.addRow(["#", "Date", "Description", "Paid", "Value (" + data.currency + ")" ]);
-    data.events.forEach(function (c, i) {
-        titheTable.addRow([
-            i + 1
-          , c.date.toString().split(" ").slice(0, 3).join(" ")
-          , c.desc
-          , c.paid ? Couleurs.fg("●", FlatColors(0, 255, 0)) + " Yes"
-          : Couleurs.fg("●", FlatColors(255, 0, 0)) + " No"
-          , c.val.toFixed(2)
-        ]);
+        var titheTable = new Table();
+        titheTable.addRow(["#", "Date", "Description", "Paid", "Value (" + data.currency + ")" ]);
+        data.events.forEach(function (c, i) {
+            titheTable.addRow([
+                i + 1
+              , c.date.toString().split(" ").slice(0, 3).join(" ")
+              , c.desc
+              , c.paid ? Couleurs.fg("●", FlatColors(0, 255, 0)) + " Yes"
+              : Couleurs.fg("●", FlatColors(255, 0, 0)) + " No"
+              , c.val.toFixed(2)
+            ]);
+        });
+
+        titheTable.addRow([" ", " ", " ", Couleurs.bold("TOTAL:"), Couleurs.bold([data.total.toFixed(2), data.currency].join(" "))]);
+        console.log(titheTable.toString());
     });
-    titheTable.addRow([" ", " ", " ", Couleurs.bold("TOTAL:"), Couleurs.bold([data.total.toFixed(2), data.currency].join(" "))]);
-    console.log(titheTable.toString());
 });
