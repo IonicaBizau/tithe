@@ -1,6 +1,6 @@
 {
   "name": "tithe",
-  "version": "1.4.1",
+  "version": "2.0.0",
   "description": "Organize and track the tithe payments.",
   "main": "lib/index.js",
   "bin": {
