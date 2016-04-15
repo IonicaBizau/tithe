@@ -57,8 +57,13 @@ $ npm i --save tithe
         
 
 ```js
-var Tithe = require("tithe");
-Tithe.insert({
+const Tithe = require("tithe");
+
+// Create an instance of Tithe
+let t = new Tithe();
+
+// And then use it
+t.insert({
     val: 100,
     tithe: true
 });
