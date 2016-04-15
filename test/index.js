@@ -1,38 +1,42 @@
+"use strict";
+
 // Dependencies
-var Tithe = require("../lib")
-  , Assert = require("assert")
-  , Fs = require("fs")
-  ;
+const Tithe = require("../lib")
+    , tester = require("tester")
+    ;
 
-// Modify the path
-Tithe.path = __dirname + "/tithe.json";
+let tithe = new Tithe(__dirname + "/tithe.json");
 
-it("should write the tithe file", function (cb) {
-    Tithe.write({}, function (err, data) {
-        Assert.equal(err, null);
-        Assert.deepEqual(data, {});
-        cb();
-    });
-});
+tester.describe("tithe", test => {
 
-it("should read the tithe file", function (cb) {
-    Tithe.read(function (err, data) {
-        Assert.equal(err, null);
-        Assert.deepEqual(data, {
-            events: []
-          , currency: "$"
+    test.should("write the tithe file", cb => {
+        tithe.write({}, (err, data) => {
+            test.expect(err).toBe(null);
+            test.expect(data).toEqual({});
+            cb();
         });
-        cb();
+    });
+
+    test.should("read the tithe file", cb => {
+        tithe.read(function (err, data) {
+            test.expect(err).toBe(null);
+            test.expect(data).toEqual({
+                events: []
+              , currency: "$"
+            });
+            cb();
+        });
+    });
+
+    test.should("insert a new object", cb => {
+        tithe.insert({
+            desc: "test"
+          , val: 100
+          , date: new Date()
+        }, function (err, data) {
+            test.expect(err).toBe(null);
+            cb();
+        });
     });
 });
 
-it("should insert a new object", function (cb) {
-    Tithe.insert({
-        desc: "test"
-      , val: 100
-      , date: new Date()
-    }, function (err, data) {
-        Assert.equal(err, null);
-        cb();
-    });
-});
