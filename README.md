@@ -1,19 +1,23 @@
-# `$ tithe` [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations] [![Travis](https://img.shields.io/travis/IonicaBizau/tithe.svg)](https://travis-ci.org/IonicaBizau/tithe/) [![Version](https://img.shields.io/npm/v/tithe.svg)](https://www.npmjs.com/package/tithe) [![Downloads](https://img.shields.io/npm/dt/tithe.svg)](https://www.npmjs.com/package/tithe) [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)
+
+# `$ tithe`
+
+ [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations] [![AMA](https://img.shields.io/badge/ask%20me-anything-1abc9c.svg)](https://github.com/IonicaBizau/ama) [![Travis](https://img.shields.io/travis/IonicaBizau/tithe.svg)](https://travis-ci.org/IonicaBizau/tithe/) [![Version](https://img.shields.io/npm/v/tithe.svg)](https://www.npmjs.com/package/tithe) [![Downloads](https://img.shields.io/npm/dt/tithe.svg)](https://www.npmjs.com/package/tithe) [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)
 
 > Organize and track the tithe payments.
 
 ## :cloud: Installation
-    
+
 You can install the package globally and use it as command line tool:
+
 
 ```sh
 $ npm i -g tithe
 ```
-    
+
 
 Then, run `tithe --help` and see what the CLI tool can do.
 
-    
+
 ```
 $ tithe --help
 Usage: tithe <command> [options]
@@ -21,16 +25,16 @@ Usage: tithe <command> [options]
 Organize and track the tithe payments.
 
 Commands:
-  insert    Inserts a new event.    
-  currency  Sets the currency.      
+  insert    Inserts a new event.
+  currency  Sets the currency.
   pay       Mark everything as paid.
-                                    
+
 Options:
-  -a, --all                Display all events.                  
+  -a, --all                Display all events.
   -P, --tithe-path <path>  Use a different tithe json file path.
-  -v, --version            Displays version information.        
-  -h, --help               Displays this help.                  
-                                                                
+  -v, --version            Displays version information.
+  -h, --help               Displays this help.
+
 Examples:
   $ tithe -i -p 100 -d 'Some work for someone'
   $ tithe -a # displays all the payments
@@ -44,17 +48,17 @@ enough to store it.» (Malachi 3:10)
 
 Documentation can be found at https://github.com/IonicaBizau/tithe.
 ```
-    
+
 ## :clipboard: Example
 
-        
+
 Here is an example how to use this package as library. To install it locally, as library, you can do that using `npm`:
 
 ```sh
 $ npm i --save tithe
 ```
 
-        
+
 
 ```js
 const Tithe = require("tithe");
@@ -68,18 +72,19 @@ t.insert({
     tithe: true
 });
 ```
-    
+
 ## :memo: Documentation
-        
+
 For full API reference, see the [DOCUMENTATION.md][docs] file.
-            
+
 ## :yum: How to contribute
 Have an idea? Found a bug? See [how to contribute][contributing].
 
+
 ## :scroll: License
-    
+
 [MIT][license] © [Ionică Bizău][website]
-    
+
 [paypal-donations]: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RVXDDLKKLQRJW
 [donate-now]: http://i.imgur.com/6cMbHOC.png
 
