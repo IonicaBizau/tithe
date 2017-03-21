@@ -3,7 +3,7 @@
     "tithe": "bin/tithe.js"
   },
   "name": "tithe",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Organize and track the tithe payments.",
   "main": "lib/index.js",
   "directories": {
@@ -23,7 +23,7 @@
     "church",
     "payment"
   ],
-  "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
+  "author": "Ionică Bizău <bizauionica@gmail.com> (https://ionicabizau.net)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/IonicaBizau/tithe/issues"
@@ -51,12 +51,11 @@
     "bin/",
     "app/",
     "lib/",
-    "build/",
     "dist/",
     "src/",
+    "scripts/",
     "resources/",
     "menu/",
-    "scripts/",
     "cli.js",
     "index.js"
   ]
