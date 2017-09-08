@@ -6,6 +6,7 @@ You can see below the API reference of this module.
 Creates a new `Tithe` instance.
 
 #### Params
+
 - **String** `conf_path`: The configuration path (default: `~/.tithe.json`).
 
 #### Return
@@ -15,6 +16,7 @@ Creates a new `Tithe` instance.
 Fetches tithe data.
 
 #### Params
+
 - **Object** `options`: An object containing:
  - `paid` (Boolean): If `true`, all events will be fetched.
 - **Function** `callback`: The callback function.
@@ -26,6 +28,7 @@ Fetches tithe data.
 Reads the JSON file.
 
 #### Params
+
 - **Function** `callback`: The callback function.
 
 #### Return
@@ -35,6 +38,7 @@ Reads the JSON file.
 Writes the JSON information in the file.
 
 #### Params
+
 - **Object** `content`: The content as object.
 - **Function** `callback`: The callback function.
 
@@ -45,6 +49,7 @@ Writes the JSON information in the file.
 Inserts a new event.
 
 #### Params
+
 - **Object** `data`: An object which will be passed to the `Tithe.Event` constructor.
 - **Function** `callback`: The callback function.
 
@@ -55,6 +60,7 @@ Inserts a new event.
 Marks all events as paid.
 
 #### Params
+
 - **Function** `callback`: The callback function.
 
 #### Return
@@ -64,6 +70,7 @@ Marks all events as paid.
 Sets the currency.
 
 #### Params
+
 - **String** `newCurrency`: The new currency.
 - **Function** `callback`: The callback function.
 
@@ -74,6 +81,7 @@ Sets the currency.
 Creates an event instance.
 
 #### Params
+
 - **Object** `options`: An object containing:
  - `desc` (String): The event description.
  - `val` (Number): The event value.
