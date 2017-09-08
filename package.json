@@ -3,7 +3,7 @@
     "tithe": "bin/tithe.js"
   },
   "name": "tithe",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Organize and track the tithe payments.",
   "main": "lib/index.js",
   "directories": {
@@ -57,6 +57,9 @@
     "resources/",
     "menu/",
     "cli.js",
-    "index.js"
+    "index.js",
+    "bloggify.js",
+    "bloggify.json",
+    "bloggify/"
   ]
 }
