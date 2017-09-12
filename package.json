@@ -3,7 +3,7 @@
     "tithe": "bin/tithe.js"
   },
   "name": "tithe",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Organize and track the tithe payments.",
   "main": "lib/index.js",
   "directories": {
