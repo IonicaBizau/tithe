@@ -56,10 +56,10 @@ let parser = new Tilda(`${__dirname}/../package.json`, {
       , desc:  "Display all events."
     }
   , examples: [
-        "tithe -i -p 100 -d 'Some work for someone'"
+        "tithe insert 'Some work for someone' 100 # The work for someone was $1000"
+      , "tithe insert 'Some work for someone' 1000 -t # Compute the tenth part, the work for someone was $1000"
       , "tithe -a # displays all the payments"
-      , "tithe -i -p 500 -t -d 'GitHub Bounty reward.'"
-      , "tithe -c '$' # sets the USD currency"
+      , "tithe currency '$' # sets the USD currency"
     ]
   , notes: "«Bring the whole tithe into the storehouse, that there may be food "
          + "in my house. Test me in this,” says the Lord Almighty, “and see if "
